@@ -4,7 +4,7 @@ Project assignment.
 Overall goal of the project:
 
 What framework are you going to use, and you do you intend to include the framework into your project?
-
+https://huggingface.co/keras-io/tab_transformer/blob/main/saved_model.pb
 
 What data are you going to run on (initially, may change)
 Credit card fraud detection dataset:
