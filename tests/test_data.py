@@ -8,3 +8,6 @@ def test_my_dataset():
     dataset = MyDataset("data/raw")
     assert isinstance(dataset, Dataset)
 '''
+
+def test_dummy():
+    assert 1 + 1 == 2
