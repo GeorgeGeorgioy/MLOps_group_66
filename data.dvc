@@ -1,0 +1,25 @@
+outs:
+- hash: md5
+  path: data
+  files:
+  - relpath: processed/.gitkeep
+    md5: d41d8cd98f00b204e9800998ecf8427e
+    size: 0
+    cloud:
+      remote_storage:
+        etag: 08c6a9f3c089fa8a031001
+        version_id: '1737024765482182'
+  - relpath: processed/balanced_creditcard.csv
+    md5: 16bd48eac427f99b7dfff368eba85638
+    size: 525068
+    cloud:
+      remote_storage:
+        etag: 08a2b981c189fa8a031001
+        version_id: '1737024765713570'
+  - relpath: raw/.gitkeep
+    md5: d41d8cd98f00b204e9800998ecf8427e
+    size: 0
+    cloud:
+      remote_storage:
+        etag: 08b39ce6c089fa8a031001
+        version_id: '1737024765267507'
