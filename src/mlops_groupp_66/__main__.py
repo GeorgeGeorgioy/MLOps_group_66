@@ -18,7 +18,7 @@ def main():
     output_folder = Path("../MLOps_group_66/data/processed")
     save_model_path = Path("../MLOps_group_66/models")
     save_model_path.mkdir(parents=True, exist_ok=True)
-    
+
     # Preprocessing data
     dataset = MyDataset(raw_data_path)
     dataset.preprocess(output_folder)

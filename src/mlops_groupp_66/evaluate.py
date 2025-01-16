@@ -6,7 +6,7 @@ device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def evaluate_transformer(model, data_loader):
     model.eval()
     all_preds, all_labels = [], []
-    
+
     with torch.no_grad():
         for batch in data_loader:
             # The transformer model expects input_ids and attention_mask
@@ -14,7 +14,7 @@ def evaluate_transformer(model, data_loader):
             predictions = torch.argmax(outputs.logits, axis=-1).cpu().numpy()
             all_preds.extend(predictions)
             all_labels.extend(batch['labels'].cpu().numpy())
-    
+
     accuracy = accuracy_score(all_labels, all_preds)
     print(f"Transformer Accuracy: {accuracy}")
     print(classification_report(all_labels, all_preds))
@@ -36,4 +36,3 @@ def evaluate_nn(model, data_loader):
     accuracy = accuracy_score(all_labels, all_preds)
     print(f"NN Accuracy: {accuracy}")
     print(classification_report(all_labels, all_preds))
-
