@@ -34,6 +34,7 @@ jobs:
           pip install -r requirements_dev.txt
           pip list
 
-      - name: Test with pytest
+      - name: Run tests & coverage
         run: |
-          pytest -v
+          coverage run -m pytest tests/
+          coverage report -m
