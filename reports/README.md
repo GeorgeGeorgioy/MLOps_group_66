@@ -53,7 +53,7 @@ will check the repositories and the code to verify your answers.
 * [x] Create a dedicated environment for you project to keep track of your packages (M2)
 * [x] Create the initial file structure using cookiecutter with an appropriate template (M6)
 * [x] Fill out the `data.py` file such that it downloads whatever data you need and preprocesses it (if necessary) (M6)
-* [ ] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
+* [x] Add a model to `model.py` and a training procedure to `train.py` and get that running (M6)
 * [x] Remember to fill out the `requirements.txt` and `requirements_dev.txt` file with whatever dependencies that you
     are using (M2+M6)
 * [x] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
@@ -118,7 +118,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 1 fill here ---
+    Group 66
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -129,7 +129,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 2 fill here ---
+    s233559, s204103, s243739, s204256, s233557
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -143,7 +143,7 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 3 fill here ---
+    As a third part package we installed the transformers one from Hugging Face which allowed us to import a light version of the Bert transformer and use that pretrained model on our dataset. In fact we train this imported transformer on our data and adapt it to our task. This model for the small balanced dataset perform good but not so much better than a small neural network which we built for comparison. This is due to the fact that the strenght of the tranformers is shown when it comes to big dataset on which to train or finetune it, we will try to improve the model optimization with methods from various modules of the course as PyTorch-lightning and see how it behaves with training and testing on expanded versions of our small dataset, which they all will come from the big really unbalanced one we found on kaggle at "https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud"
 
 ## Coding environment
 
