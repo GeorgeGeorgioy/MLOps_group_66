@@ -20,19 +20,24 @@ def evaluate_transformer(model, data_loader):
     print(classification_report(all_labels, all_preds))
 
 def evaluate_nn(model, data_loader):
-    model.eval()
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model.eval()  # Set the model to evaluation mode
     all_preds, all_labels = [], []
 
-    with torch.no_grad():
-        for inputs, labels in data_loader:  # Unpack tuple
+    with torch.no_grad():  # No gradients needed for evaluation
+        for inputs, labels in data_loader:
             inputs = inputs.to(device)
             labels = labels.to(device)
 
+            # Get the model's predictions (probabilities)
             outputs = model(inputs)
-            predictions = torch.argmax(outputs, axis=-1).cpu().numpy()
+
+            # Convert probabilities to binary predictions (0 or 1)
+            predictions = (outputs > 0.5).float().cpu().numpy()  # Apply threshold
             all_preds.extend(predictions)
             all_labels.extend(labels.cpu().numpy().squeeze())  # Remove extra dimension for comparison
 
+    # Calculate and print accuracy and classification report
     accuracy = accuracy_score(all_labels, all_preds)
-    print(f"NN Accuracy: {accuracy}")
+    print(f"NN Accuracy: {accuracy * 100:.2f}%")
     print(classification_report(all_labels, all_preds))
