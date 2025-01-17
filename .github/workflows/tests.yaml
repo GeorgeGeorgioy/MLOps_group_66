@@ -34,6 +34,9 @@ jobs:
           pip install -r requirements_dev.txt
           pip list
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
       - name: Test with pytest
         run: |
           pytest -v
