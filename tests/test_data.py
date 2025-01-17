@@ -1,13 +1,7 @@
-'''
-from torch.utils.data import Dataset
 from mlops_groupp_66.data import MyDataset
 
 
-def test_my_dataset():
-    """Test the MyDataset class."""
-    dataset = MyDataset("data/raw")
-    assert isinstance(dataset, Dataset)
-'''
-
-def test_dummy():
-    assert 1 + 1 == 2
+def test_data():
+    raw_data_path = "data/raw/balanced_creditcard.csv"
+    dataset = MyDataset(raw_data_path)
+    assert dataset is not None
