@@ -34,8 +34,13 @@ jobs:
           pip install -r requirements_dev.txt
           pip list
 
-      - name: Set PYTHONPATH
+      - name: Set PYTHONPATH (Linux/Mac)
+        if: runner.os != 'Windows'
         run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+
+      - name: Set PYTHONPATH (Windows)
+        if: runner.os == 'Windows'
+        run: echo "PYTHONPATH=D:\a\MLOps_group_66\MLOps_group_66\src" >> $GITHUB_ENV
 
       - name: Test with pytest
         run: |
