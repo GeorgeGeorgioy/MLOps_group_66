@@ -40,7 +40,9 @@ jobs:
 
       - name: Set PYTHONPATH (Windows)
         if: runner.os == 'Windows'
-        run: echo "PYTHONPATH=D:\\a\\MLOps_group_66\\MLOps_group_66\\src" >> $GITHUB_ENV
+        run: |
+          echo "PYTHONPATH=D:\\a\\MLOps_group_66\\MLOps_group_66\\src" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PYTHONPATH" >> $GITHUB_ENV
 
       - name: Test with pytest
         run: |
