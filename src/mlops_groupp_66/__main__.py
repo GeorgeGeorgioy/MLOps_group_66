@@ -21,7 +21,7 @@ def main(cfg):
 
 
     hydra_path = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
-    
+
     logger.add(os.path.join(hydra_path, "logs.log"))
     logger.info(cfg)
 
@@ -46,7 +46,7 @@ def main(cfg):
     except Exception as e:
         logger.critical("Error resolving paths from environment variables", exc_info=True)
         sys.exit(1)
-   
+
     try:
         logger.info("Preprocessing dataset...")
         dataset = MyDataset(raw_data_path)
@@ -56,8 +56,8 @@ def main(cfg):
     except Exception as e:
         logger.error("Error during data preprocessing", exc_info=True)
         sys.exit(1)
-    
-    
+
+
     try:
         tokenizer = DistilBertTokenizer.from_pretrained(cfg.tokenizer.name)
         train_loader_tf, test_loader_tf = get_transformer_dataloaders(
@@ -65,18 +65,18 @@ def main(cfg):
         )
         transformer_model = FraudTransformer().to("cuda" if torch.cuda.is_available() else "cpu")
 
-        
+
         logger.info("Training Transformer model...")
         train_transformer_model(
             transformer_model, train_loader_tf, num_epochs=cfg.training.num_epochs, lr=cfg.training.lr
         )
         logger.info("Training Transformer finshed...")
 
-   
+
         logger.info("Evaluating Transformer model...")
         evaluate_transformer( test_loader_tf)
 
-        
+
     except Exception as e:
         logger.error("Error in Transformer model workflow", exc_info=True)
         sys.exit(1)
@@ -87,26 +87,26 @@ def main(cfg):
     #         data, tokenizer, max_len=cfg.tokenizer.max_len, batch_size=cfg.training.batch_size
     #     )
     # transformer_model = FraudTransformer().to("cuda" if torch.cuda.is_available() else "cpu")
-  
-        
-        
+
+
+
     # train_transformer_model(
     #         transformer_model, train_loader_tf, num_epochs=cfg.training.num_epochs, lr=cfg.training.lr
     #     )
- 
+
     # #evaluate_transformer(transformer_model, test_loader_tf)
     # evaluate_transformer(test_loader_tf)
-        
-    
+
+
     # torch.save(transformer_model.state_dict(), model_path)
     # logger.info(f"Transformer model saved to {model_path}")
 
 
 
-    
-    
+
+
     logger.info("Pipeline completed successfully.")
-    
-    
+
+
 if __name__ == "__main__":
     main()

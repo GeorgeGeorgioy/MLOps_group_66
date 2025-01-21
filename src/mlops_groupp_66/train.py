@@ -13,7 +13,7 @@ import wandb
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 import matplotlib.pyplot as plt
 import seaborn as sns
-import warnings 
+import warnings
 
 warnings.filterwarnings("ignore")
 
@@ -23,8 +23,8 @@ def train_transformer_model(model, train_loader, num_epochs=1, lr=5e-5):
     load_dotenv()
     save_model_path = Path(os.getenv("SAVE_MODEL")).resolve()
     save_model_path.mkdir(parents=True, exist_ok=True)
-    
-    
+
+
 
 
     wandb.init(
@@ -37,8 +37,8 @@ def train_transformer_model(model, train_loader, num_epochs=1, lr=5e-5):
     for epoch in range(num_epochs):
         model.train()
         epoch_loss = 0
-        all_preds = []  
-        all_labels = []          
+        all_preds = []
+        all_labels = []
         for batch in train_loader:
             optimizer.zero_grad()
             outputs = model(
@@ -49,7 +49,7 @@ def train_transformer_model(model, train_loader, num_epochs=1, lr=5e-5):
             loss = outputs.loss
             loss.backward()
             optimizer.step()
-    
+
 
             wandb.log({"batch_loss": loss.item()}) # Log the loss for each batch
             epoch_loss += loss.item()
@@ -79,7 +79,7 @@ def train_transformer_model(model, train_loader, num_epochs=1, lr=5e-5):
             "auc": auc
         })
 
-      
+
         cm = confusion_matrix(all_labels, all_preds)
         fig, ax = plt.subplots(figsize=(16, 12))
         sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=["Class 0", "Class 1"], yticklabels=["Class 0", "Class 1"])
@@ -87,20 +87,20 @@ def train_transformer_model(model, train_loader, num_epochs=1, lr=5e-5):
         plt.ylabel('True')
         plt.title('Confusion Matrix')
 
-        
+
         wandb.log({"confusion_matrix": wandb.Image(fig)})
-        plt.close(fig)  
+        plt.close(fig)
 
         print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_epoch_loss}")
 
-    
-    
+
+
     torch.save(model.state_dict(), save_model_path / 'fraud_transformer_model.pth')
-    print(f"Model saved to {save_model_path}") 
+    print(f"Model saved to {save_model_path}")
 
     # model_artifact = wandb.Artifact("trained_model", type="model")
     # model_artifact.add_file(str(save_model_path / 'fraud_transformer_model.pth'))
- 
+
     # wandb.log({"model": model_artifact})
 
     wandb.finish()
@@ -112,8 +112,8 @@ if __name__ == "__main__":
     processed_data_path = Path(os.getenv("PROCESSED_DATA")).resolve()
     save_model_path = Path(os.getenv("SAVE_MODEL")).resolve()
     save_model_path.mkdir(parents=True, exist_ok=True)
-    
-    
+
+
     model_file = save_model_path / "fraud_transformer_model.pth"
     tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
     data = pd.read_csv(processed_data_path)
@@ -122,4 +122,3 @@ if __name__ == "__main__":
     train_transformer_model(transformer_model, train_loader_tf, num_epochs=1, lr=5e-5)
     torch.save(transformer_model.state_dict(), save_model_path / 'fraud_transformer_model.pth')
     print(f"Transformer model saved to {model_file}")
-    
