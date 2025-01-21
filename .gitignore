@@ -178,3 +178,9 @@ cython_debug/
 /data
 models/*.pth
 wandb/
+data/
+outputs/
+wandb/
+models/
+wandb/
+.env
