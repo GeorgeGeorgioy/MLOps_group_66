@@ -8,7 +8,7 @@ from transformers import AdamW, DistilBertTokenizer
 import torch
 from model import FraudTransformer
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from data import get_transformer_dataloaders
 import pandas as pd
 import os
@@ -22,7 +22,13 @@ def train_and_evaluate(config=None):
         config = wandb.config
 
         # Load data and model
-        load_dotenv()
+        #load_dotenv()
+        print(f"Using .env file: {find_dotenv()}")
+        load_dotenv(override=True)
+
+        processed_data_path = os.getenv('PROCESSED_DATA')
+        print(f"Loaded PROCESSED_DATA_PATH: {processed_data_path}")
+
         processed_data_path = Path(os.getenv("PROCESSED_DATA")).resolve()
         data = pd.read_csv(processed_data_path)
         tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
@@ -81,7 +87,7 @@ def main():
         "parameters": {
             "lr": {"values": [1e-5,1e-4]},  # Learning rate sweep
             "batch_size": {"values": [16,32,64]},    # Batch size sweep
-            "epochs": {"value": 1},                # Fixed value
+            "epochs": {"value": 3},                # Fixed value
             "max_len": {"values": [128, 256]}      # Input sequence length
         },
     }
