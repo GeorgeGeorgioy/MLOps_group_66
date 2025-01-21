@@ -1,4 +1,3 @@
-
 import sys
 import os
 from pathlib import Path
@@ -14,6 +13,7 @@ from model import FraudTransformer
 from train import train_transformer_model
 from evaluate import evaluate_transformer
 from loguru import logger
+
 load_dotenv()
 
 @hydra.main(version_base="1.1",config_path="../../configs", config_name="config")
@@ -106,8 +106,8 @@ def main(cfg):
 
 
 
-
-
+    
+    
     logger.info("Pipeline completed successfully.")
     
     
