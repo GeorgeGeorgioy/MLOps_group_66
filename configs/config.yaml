@@ -1,0 +1,7 @@
+training:
+  batch_size: 64
+  num_epochs: 1
+  lr: 0.00005
+tokenizer:
+  name: distilbert-base-uncased
+  max_len: 128
