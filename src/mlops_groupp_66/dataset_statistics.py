@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import pandas as pd
-import torch
 import typer
 from pathlib import Path
 from mlops_groupp_66.data import MyDataset
@@ -22,7 +20,7 @@ def dataset_statistics(raw_data_path: str = "data/raw/balanced_creditcard.csv") 
     print(data.head())
 
     # Plot label distribution
-    label_distribution = data['label'].value_counts()
+    label_distribution = data['Class'].value_counts()
     plt.bar(label_distribution.index, label_distribution.values)
     plt.title("Label distribution")
     plt.xlabel("Label")
