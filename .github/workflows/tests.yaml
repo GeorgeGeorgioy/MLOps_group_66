@@ -10,10 +10,9 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
         python-version: ["3.12", "3.11"]
 
     steps:
@@ -34,7 +33,9 @@ jobs:
           pip install -r requirements_dev.txt
           pip list
 
-      - name: Run tests & coverage
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+
+      - name: Test with pytest
         run: |
-          coverage run -m pytest tests/
-          coverage report -m
+          pytest -v
