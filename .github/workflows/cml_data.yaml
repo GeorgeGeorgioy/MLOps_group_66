@@ -1,4 +1,4 @@
-name: DVC Workflow
+name: Dataset Statistics
 
 on: [push, pull_request]
 
@@ -23,9 +23,12 @@ jobs:
         pip install -r requirements_dev.txt
         pip list
 
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+
     - name: Check data statistics & generate report
       run: |
-        python src/mlops_groupp_66/dataset_statistics.py > data_statistics.md
+        python -m mlops_groupp_66.dataset_statistics > data_statistics.md
         echo '![](./data_statistics.png "Data statistics")' >> data_statistics.md
 
     - name: Setup cml
