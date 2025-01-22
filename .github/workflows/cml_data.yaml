@@ -1,14 +1,9 @@
 name: DVC Workflow
 
-on:
-  pull_request:
-    branches:
-    - main
-    paths:
-    - '**/*.dvc'
-    - '.dvc/**'
+on: [push, pull_request]
+
 jobs:
-  run_data_checker:
+  dataset_statistics:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -23,18 +18,21 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make dev_requirements
+        python -m pip install --upgrade pip setuptools wheel
+        pip install -r requirements.txt
+        pip install -r requirements_dev.txt
         pip list
 
-    - name: Auth with GCP
-      uses: google-github-actions/auth@v2
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
-
-    - name: Pull data
+    - name: Check data statistics & generate report
       run: |
-        dvc pull --no-run-cache
+        python src/mlops_groupp_66/dataset_statistics.py > data_statistics.md
+        echo '![](./data_statistics.png "Data statistics")' >> data_statistics.md
 
-    - name: Check data statistics
+    - name: Setup cml
+      uses: iterative/setup-cml@v2
+
+    - name: Comment on PR
+      env:
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        python dataset_statistics.py
+        cml comment create data_statistics.md --watermark-title="Data Checker"

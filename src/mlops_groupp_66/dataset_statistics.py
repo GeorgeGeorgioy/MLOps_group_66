@@ -20,22 +20,25 @@ def dataset_statistics(raw_data_path: str = "data/raw/balanced_creditcard.csv") 
     print(data.head())
 
     # Plot label distribution
+    plt.figure(figsize=(20, 15))
+    plt.subplot(4, 8, 1)
     label_distribution = data['Class'].value_counts()
     plt.bar(label_distribution.index, label_distribution.values)
     plt.title("Label distribution")
     plt.xlabel("Label")
     plt.ylabel("Count")
-    plt.savefig("label_distribution.png")
-    plt.close()
 
-    # Plot some feature distributions
-    for column in data.columns[:-1]:  # Exclude the label column
-        plt.hist(data[column], bins=50)
-        plt.title(f"Distribution of {column}")
+    # Plot feature distributions
+    for i, column in enumerate(data.columns[:-1], start=2):  # Exclude the label column
+        plt.subplot(4, 8, i)
+        plt.hist(data[column], bins=50, alpha=0.75)
+        plt.title(f"{column} distribution")
         plt.xlabel(column)
         plt.ylabel("Count")
-        plt.savefig(f"{column}_distribution.png")
-        plt.close()
+
+    plt.tight_layout()
+    plt.savefig("data_statistics.png")
+    plt.close()
 
 if __name__ == "__main__":
     typer.run(dataset_statistics)
