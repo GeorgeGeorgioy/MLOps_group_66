@@ -3,6 +3,9 @@
 # Under constraction
 
 ###########################################################
+
+
+# from src.mlops_groupp_66.model import FraudTransformer
 import wandb
 from transformers import AdamW, DistilBertTokenizer
 import torch

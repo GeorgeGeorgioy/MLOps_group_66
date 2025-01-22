@@ -4,4 +4,5 @@ workerPoolSpecs:
         machineType: n1-highmem-2
     replicaCount: 1
     containerSpec:
-        imageUri: gcr.io/mlops-january-2025/ml-ops-group-66/latest-image
+        imageUri: europe-west1-docker.pkg.dev/mlops-january-2025/ml-ops-group-66/latest-image
+
