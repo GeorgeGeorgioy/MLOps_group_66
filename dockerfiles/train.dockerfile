@@ -17,4 +17,4 @@ COPY README.md README.md
 RUN pip install -r requirements.txt --no-cache-dir --verbose
 RUN pip install . --no-deps --no-cache-dir --verbose
 
-ENTRYPOINT ["python", "-u", "src/mlops_groupp_66/__main__.py"]
+ENTRYPOINT ["python", "-u", "src/mlops_groupp_66/train_hyp_sweep.py"]
