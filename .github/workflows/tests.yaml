@@ -36,6 +36,9 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
 
+      - name: Set environment variables
+        run: echo "RAW_DATA=$(pwd)/data/raw/balanced_creditcard.csv" >> $GITHUB_ENV
+
       - name: Test with pytest
         run: |
           pytest -v
