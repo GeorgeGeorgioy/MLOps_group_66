@@ -9,9 +9,9 @@ import hydra
 from omegaconf import OmegaConf
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from data import MyDataset, get_transformer_dataloaders
-from model import FraudTransformer
-from train import train_transformer_model
-from evaluate import evaluate_transformer
+from .model import FraudTransformer
+from .train import train_transformer_model
+from .evaluate import evaluate_transformer
 from loguru import logger
 
 load_dotenv()

@@ -2,9 +2,9 @@ from sklearn.metrics import accuracy_score, classification_report
 import torch
 import os
 from pathlib import Path
-from model import FraudTransformer
+from .model import FraudTransformer
 from dotenv import load_dotenv
-from data import get_transformer_dataloaders
+from .data import get_transformer_dataloaders
 import pandas as pd
 from transformers import DistilBertTokenizer
 
