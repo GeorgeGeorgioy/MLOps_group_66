@@ -61,7 +61,7 @@ def train_and_evaluate(config=None):
             
             trainer = pl.Trainer(
                 devices=1,  # Use 1 CPU or GPU
-                accelerator="cpu",  # Explicitly set to use CPU or GPU if available
+                accelerator="auto",  # Explicitly set to use CPU or GPU if available
                 max_epochs=1,  # Example other arguments
                 log_every_n_steps=1,  # Log frequency
                 logger=wandb_logger,

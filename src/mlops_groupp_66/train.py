@@ -33,7 +33,7 @@ def train_transformer():
     # Create PyTorch Lightning Trainer
     trainer = pl.Trainer(
                 devices=1,  # Use 1 CPU or GPU
-                accelerator="cpu",  # Explicitly set to use CPU or GPU if available
+                accelerator="auto",  # Explicitly set to use CPU or GPU if available
                 max_epochs=1)
 
     # Train the model
