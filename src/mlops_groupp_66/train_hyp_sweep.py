@@ -13,6 +13,7 @@ from sklearn.metrics import accuracy_score
 import logging
 import time
 import warnings
+from sklearn.metrics import confusion_matrix
 
 warnings.filterwarnings("ignore")
 
@@ -75,6 +76,33 @@ def train_and_evaluate(config=None):
             logging.info("Evaluating model...")
             # Evaluate the model
             trainer.validate(model, dataloaders=test_loader)
+            logging.info("Model evaluated successfully.")
+
+                    # Collect predictions and true labels for the confusion matrix
+            all_preds = []
+            all_labels = []
+
+            model.eval()  # Ensure the model is in evaluation mode
+            with torch.no_grad():
+                for batch in test_loader:
+                    input_ids = batch["input_ids"].to(device)
+                    attention_mask = batch["attention_mask"].to(device)
+                    labels = batch["labels"].to(device)
+
+                    # Forward pass
+                    outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+                    preds = torch.argmax(outputs.logits, dim=-1)
+
+                    all_preds.extend(preds.cpu().numpy())
+                    all_labels.extend(labels.cpu().numpy())
+
+            # Compute confusion matrix
+            cm = confusion_matrix(all_labels, all_preds)
+            logging.info(f"Confusion Matrix:\n{cm}")
+
+            # Log confusion matrix to WandB
+            model.log_confusion_matrix(cm)
+
             logging.info("Model evaluated successfully.")
 
             logging.info("Saving model...")
