@@ -1,6 +1,4 @@
 import torch
-import torch.nn as nn
-import torch.optim as optim
 from transformers import AdamW
 from transformers import DistilBertTokenizer
 from .model import FraudTransformer

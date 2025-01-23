@@ -1,6 +1,6 @@
 from pathlib import Path
 import pandas as pd
-from torch.utils.data import Dataset, DataLoader, TensorDataset
+from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 from transformers import DistilBertTokenizer
 import torch

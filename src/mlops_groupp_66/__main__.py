@@ -41,9 +41,9 @@ def main(cfg):
         output_folder = Path(os.getenv("OUTPUT_FOLDER")).resolve()
         save_model_path = Path(os.getenv("SAVE_MODEL")).resolve()
         save_model_path.mkdir(parents=True, exist_ok=True)
-        model_path = save_model_path / "fraud_transformer_model.pth"
+        #model_path = save_model_path / "fraud_transformer_model.pth"
         logger.info(f"Resolved paths successfully: raw_data_path={raw_data_path}, processed_data_path={processed_data_path}")
-    except Exception as e:
+    except Exception:
         logger.critical("Error resolving paths from environment variables", exc_info=True)
         sys.exit(1)
 
@@ -53,7 +53,7 @@ def main(cfg):
         dataset.preprocess(output_folder)
         data = pd.read_csv(processed_data_path)
         logger.info("Data preprocessing completed successfully.")
-    except Exception as e:
+    except Exception:
         logger.error("Error during data preprocessing", exc_info=True)
         sys.exit(1)
 
@@ -77,7 +77,7 @@ def main(cfg):
         evaluate_transformer( test_loader_tf)
 
 
-    except Exception as e:
+    except Exception:
         logger.error("Error in Transformer model workflow", exc_info=True)
         sys.exit(1)
 
