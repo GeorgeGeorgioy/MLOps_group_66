@@ -7,6 +7,8 @@ import os
 import subprocess
 from dotenv import load_dotenv
 from pathlib import Path
+from fastapi.responses import HTMLResponse
+
 app = FastAPI()
 load_dotenv()
 # Define the path to the config file
@@ -25,11 +27,73 @@ class Hyperparameters(BaseModel):
     epochs: int
     max_len: int
 
-@app.get("/")
-def read_root():
-    """ Health check."""
+@app.get("/", response_class=HTMLResponse)
+async def serve_frontend():
+    html_content = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>ML Model Interface</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            label, input, button { display: block; margin-bottom: 10px; }
+            button { padding: 10px 20px; cursor: pointer; }
+            #response { margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+        </style>
+    </head>
+    <body>
+        <h1>Machine Learning Model Interface</h1>
+        
+        <h2>Train Model</h2>
+        <form id="train-form">
+            <label for="learning_rate">Learning Rate:</label>
+            <input type="number" id="learning_rate" name="learning_rate" step="0.0001" value="0.001" required>
+            
+            <label for="batch_size">Batch Size:</label>
+            <input type="number" id="batch_size" name="batch_size" value="32" required>
+            
+            <label for="epochs">Epochs:</label>
+            <input type="number" id="epochs" name="epochs" value="10" required>
+            
+            <button type="button" id="train-btn">Train Model</button>
+        </form>
+        
+        <h2>Evaluate Model</h2>
+        <button id="evaluate-btn">Evaluate Model</button>
+        
+        <div id="response">Response will appear here...</div>
+        
+        <script>
+            async function postTrain() {
+                const formData = new FormData(document.getElementById("train-form"));
+                const payload = Object.fromEntries(formData.entries());
+                payload.learning_rate = parseFloat(payload.learning_rate);
+                payload.batch_size = parseInt(payload.batch_size);
+                payload.epochs = parseInt(payload.epochs);
 
-    return {"Hello": "World"}
+                const response = await fetch('/train', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                document.getElementById('response').innerText = 'Train Response: ' + JSON.stringify(data);
+            }
+
+            async function getEvaluate() {
+                const response = await fetch('/evaluate');
+                const data = await response.json();
+                document.getElementById('response').innerText = 'Evaluate Response: ' + JSON.stringify(data);
+            }
+
+            document.getElementById('train-btn').addEventListener('click', postTrain);
+            document.getElementById('evaluate-btn').addEventListener('click', getEvaluate);
+        </script>
+    </body>
+    </html>
+    """
+    return html_content
+    
 
 # Endpoint to get the current hyperparameters
 @app.get("/hyperparameters/")
