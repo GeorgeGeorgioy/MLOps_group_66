@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import torch
-from src.mlops_groupp_66.model import FraudTransformer
+from mlops_groupp_66.model import FraudTransformer
 
 class TestFraudTransformer(unittest.TestCase):
     @patch("src.mlops_groupp_66.model.DistilBertForSequenceClassification")
