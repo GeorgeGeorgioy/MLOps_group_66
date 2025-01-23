@@ -10,10 +10,12 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         python-version: ["3.12", "3.11"]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
