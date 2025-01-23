@@ -1,75 +1,49 @@
-# device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-# def evaluate_transformer(data_loader):
-
-#     load_dotenv()
-#     model_checkpoint = Path(os.getenv("TRAINED_MODEL")).resolve()
-
-#     model = FraudTransformer().to(device)
-#     model.load_state_dict(torch.load(model_checkpoint))
-#     model.eval()
-#     all_preds, all_labels = [], []
-
-
-
-#     with torch.no_grad():
-#         for batch in data_loader:
-#             # The transformer model expects input_ids and attention_mask
-#             outputs = model(batch['input_ids'].to(device), batch['attention_mask'].to(device))
-#             predictions = torch.argmax(outputs.logits, axis=-1).cpu().numpy()
-#             all_preds.extend(predictions)
-#             all_labels.extend(batch['labels'].cpu().numpy())
-
-#     accuracy = accuracy_score(all_labels, all_preds)
-#     print(f"Transformer Accuracy: {accuracy}")
-#     print(classification_report(all_labels, all_preds))
-
-
-# if __name__ == "__main__":
-#     load_dotenv()
-#     processed_data_path = Path(os.getenv("PROCESSED_DATA")).resolve()
-#     data = pd.read_csv(processed_data_path)
-#     tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
-#     _, test_loader = get_transformer_dataloaders(data, tokenizer, max_len=128, batch_size=16)
-#     evaluate_transformer(test_loader)
-
-import torch
 import os
 from pathlib import Path
-from model import FraudTransformer
-from dotenv import load_dotenv
-from data import get_transformer_dataloaders
-import pandas as pd
-from transformers import DistilBertTokenizer
+import torch
 import pytorch_lightning as pl
+from transformers import DistilBertForSequenceClassification, DistilBertTokenizer
+import pandas as pd
+from data import get_transformer_dataloaders
+from model import FraudTransformer  # Your model file
 from sklearn.metrics import accuracy_score, classification_report
+from dotenv import load_dotenv
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def evaluate_transformer():
+    # Load preprocessed data
     load_dotenv()
     processed_data_path = Path(os.getenv("PROCESSED_DATA")).resolve()
-    model_checkpoint = Path(os.getenv("TRAINED_MODEL")).resolve()
+    tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
     
     # Load data
     data = pd.read_csv(processed_data_path)
-    tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
     _, test_loader = get_transformer_dataloaders(data, tokenizer, max_len=128, batch_size=16)
     
-    # Load the model
-    model = FraudTransformer()
-    
-    # Create a PyTorch Lightning Trainer
-    trainer = pl.Trainer(gpus=1 if torch.cuda.is_available() else 0)  # Auto-select GPU or CPU
-    
     # Load the trained model
-    model = FraudTransformer.load_from_checkpoint(model_checkpoint)
-    
+    model_checkpoint_path = Path(os.getenv("TRAINED_MODEL")).resolve()
+    bert_model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased")
+    model = FraudTransformer(bert_model).to(device)
+    model.load_state_dict(torch.load(model_checkpoint_path))
+
+    # Create PyTorch Lightning Trainer
+    trainer = pl.Trainer(
+                devices=1,  # Use 1 CPU or GPU
+                accelerator="cpu",  # Explicitly set to use CPU or GPU if available
+                max_epochs=1)
+
     # Evaluate the model on the test data
-    result = trainer.test(model, test_dataloaders=test_loader)
-    
-    # Collect predictions and labels from the evaluation
-    all_preds = result[0]["predictions"]
-    all_labels = result[0]["labels"]
-    
+    result = trainer.test(model, dataloaders=test_loader)
+
+    # Collect predictions and labels
+    all_preds = []
+    all_labels = []
+    for res in result:
+        all_preds.extend(res["predictions"].cpu().numpy())
+        all_labels.extend(res["labels"].cpu().numpy())
+
+    # Calculate accuracy and classification report
     accuracy = accuracy_score(all_labels, all_preds)
     print(f"Transformer Accuracy: {accuracy}")
     print(classification_report(all_labels, all_preds))
