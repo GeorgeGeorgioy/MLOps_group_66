@@ -9,7 +9,7 @@
 import wandb
 from transformers import AdamW, DistilBertTokenizer
 import torch
-from .model import FraudTransformer
+from src.mlops_groupp_66.model import FraudTransformer
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 from data import get_transformer_dataloaders

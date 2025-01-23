@@ -1,7 +1,7 @@
 # Base image
 FROM python:3.11-slim AS base
 
-# WORKDIR /app
+WORKDIR /app
 
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
@@ -13,8 +13,9 @@ COPY requirements_dev.txt requirements_dev.txt
 COPY pyproject.toml pyproject.toml
 COPY README.md README.md
 
-
 RUN pip install -r requirements.txt --no-cache-dir --verbose
 RUN pip install . --no-deps --no-cache-dir --verbose
+
+ENV PYTHONPATH=/app
 
 ENTRYPOINT ["python", "-u", "src/mlops_groupp_66/train_hyp_sweep.py"]
