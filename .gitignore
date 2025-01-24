@@ -184,3 +184,9 @@ wandb/
 models/
 wandb/
 .env
+driftreport/
+lightning_logs/
+/transformer_hyperparameter_sweep
+transformer_hyperparameter_sweep/
+src/mlops_groupp_66/__pycache__/
+__pycache__/*.pyc
