@@ -582,7 +582,7 @@ We added a simple front-end to our FastAPI application in order to make APIs usa
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
-
+![Project architecture overview](<figures/Project scheme.jpg>)
 The diagram starts from two ends, first of all its from we, the developers’ local setup. In order to synchronize work and use version control we use github, where we can push and pull from the main branch. To handle data version control we can also use DVC push and pull to ensure that everyone’s data is up to date at all time. Whenever we push to github it auto triggers the Google cloud build which builds docker files from a cloudbuild configuration file, which builds using a docker file. After the images are built they are stored in the google artifact registry. These images can then be accessed by Vertex AI, which helps set up a VM with the docker image which is then run on the google compute engine to train models in the cloud. This can be achieved by the developer by the terminal interface from a configuration file. When setting up experiments the developer uses a Hydra config file, which assists with hyperparameter settings. This is then trained either locally or in the cloud. The model training and evaluation is logged using Weights and Biases. 
 From a users point of view, the way they interact with the model is through the API Interface. This is then used to trian locally, since we didn’t have time to implement the API cloud interface, which in future iterations should be able to draw the latest trained model from the compute engine, through the API.
 
