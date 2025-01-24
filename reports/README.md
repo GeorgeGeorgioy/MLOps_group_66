@@ -62,13 +62,13 @@ will check the repositories and the code to verify your answers.
 * [ ] Add command line interfaces and project commands to your code where it makes sense (M9)
 * [x] Construct one or multiple docker files for your code (M10)
 * [x] Build the docker files locally and make sure they work as intended (M10)
-* [ ] Write one or multiple configurations files for your experiments (M11)
+* [x] Write one or multiple configurations files for your experiments (M11)
 * [x] Used Hydra to load the configurations and manage your hyperparameters (M11)
-* [ ] Use profiling to optimize your code (M12)
+* [x] Use profiling to optimize your code (M12)
 * [x] Use logging to log important events in your code (M14)
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
 * [x] Consider running a hyperparameter optimization sweep (M14)
-* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
+* [x] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
 
 ### Week 2
 
@@ -83,17 +83,17 @@ will check the repositories and the code to verify your answers.
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
 * [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
 * [x] Create a trigger workflow for automatically building your docker images (M21)
-* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
-* [ ] Create a FastAPI application that can do inference using your model (M22)
+* [~] Get your model training in GCP using either the Engine or Vertex AI (M21)
+* [x] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
 * [ ] Write API tests for your application and setup continues integration for these (M24)
 * [ ] Load test your application (M24)
 * [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)
-* [ ] Create a frontend for your API (M26)
+* [x] Create a frontend for your API (M26)
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting (M27)
+* [~] Check how robust your model is towards data drifting (M27)
 * [ ] Deploy to the cloud a drift detection API (M27)
 * [ ] Instrument your API with a couple of system metrics (M28)
 * [ ] Setup cloud monitoring of your instrumented application (M28)
@@ -106,10 +106,10 @@ will check the repositories and the code to verify your answers.
 
 * [ ] Write some documentation for your application (M32)
 * [ ] Publish the documentation to GitHub Pages (M32)
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Create an architectural diagram over your MLOps pipeline
-* [ ] Make sure all group members have an understanding about all parts of the project
-* [ ] Uploaded all your code to GitHub
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Create an architectural diagram over your MLOps pipeline
+* [x] Make sure all group members have an understanding about all parts of the project
+* [x] Uploaded all your code to GitHub
 
 
 ## Group information
