@@ -10,10 +10,12 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         python-version: ["3.12", "3.11"]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -36,6 +38,11 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
 
+      - name: Set environment variables
+        run: echo "RAW_DATA=$(pwd)/data/raw/balanced_creditcard.csv" >> $GITHUB_ENV
+
       - name: Test with pytest
         run: |
+          coverage run -m pytest tests/
+          coverage report -m
           pytest -v

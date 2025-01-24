@@ -9,9 +9,9 @@ import hydra
 from omegaconf import OmegaConf
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from data import MyDataset, get_transformer_dataloaders
-from model import FraudTransformer
-from train import train_transformer_model
-from evaluate import evaluate_transformer
+from .model import FraudTransformer
+from .train import train_transformer_model
+from .evaluate import evaluate_transformer
 from loguru import logger
 import warnings
 
@@ -24,7 +24,7 @@ def main(cfg):
 
 
     hydra_path = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
-    
+
     logger.add(os.path.join(hydra_path, "logs.log"))
     logger.info(cfg)
 
@@ -44,23 +44,23 @@ def main(cfg):
         output_folder = Path(os.getenv("OUTPUT_FOLDER")).resolve()
         save_model_path = Path(os.getenv("SAVE_MODEL")).resolve()
         save_model_path.mkdir(parents=True, exist_ok=True)
-        model_path = save_model_path / "fraud_transformer_model.pth"
+        #model_path = save_model_path / "fraud_transformer_model.pth"
         logger.info(f"Resolved paths successfully: raw_data_path={raw_data_path}, processed_data_path={processed_data_path}")
-    except Exception as e:
+    except Exception:
         logger.critical("Error resolving paths from environment variables", exc_info=True)
         sys.exit(1)
-   
+
     try:
         logger.info("Preprocessing dataset...")
         dataset = MyDataset(raw_data_path)
         dataset.preprocess(output_folder)
         data = pd.read_csv(processed_data_path)
         logger.info("Data preprocessing completed successfully.")
-    except Exception as e:
+    except Exception:
         logger.error("Error during data preprocessing", exc_info=True)
         sys.exit(1)
-    
-    
+
+
     try:
         tokenizer = DistilBertTokenizer.from_pretrained(cfg.tokenizer.name)
         train_loader_tf, test_loader_tf = get_transformer_dataloaders(
@@ -68,25 +68,25 @@ def main(cfg):
         )
         transformer_model = FraudTransformer().to("cuda" if torch.cuda.is_available() else "cpu")
 
-        
+
         logger.info("Training Transformer model...")
         train_transformer_model(
             transformer_model, train_loader_tf, num_epochs=cfg.training.num_epochs, lr=cfg.training.lr
         )
         logger.info("Training Transformer finshed...")
 
-   
+
         logger.info("Evaluating Transformer model...")
         evaluate_transformer( test_loader_tf)
 
-        
-    except Exception as e:
+
+    except Exception:
         logger.error("Error in Transformer model workflow", exc_info=True)
         sys.exit(1)
     
     
     logger.info("Pipeline completed successfully.")
-    
-    
+
+
 if __name__ == "__main__":
     main()
