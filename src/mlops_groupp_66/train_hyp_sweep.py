@@ -4,7 +4,7 @@
 
 ###########################################################
 import wandb
-from transformers import AdamW, DistilBertTokenizer
+from transformers import DistilBertTokenizer
 from transformers import DistilBertForSequenceClassification
 import torch
 import pytorch_lightning as pl
@@ -14,7 +14,6 @@ from dotenv import load_dotenv
 from data import get_transformer_dataloaders
 import pandas as pd
 import os
-from sklearn.metrics import accuracy_score
 import logging
 import time
 import warnings

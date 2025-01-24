@@ -7,11 +7,7 @@ from dotenv import load_dotenv
 from .data import get_transformer_dataloaders
 import pandas as pd
 import os
-import wandb
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
-import matplotlib.pyplot as plt
-import seaborn as sns
-import warnings
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

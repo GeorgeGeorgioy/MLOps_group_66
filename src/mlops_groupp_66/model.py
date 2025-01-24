@@ -1,8 +1,6 @@
 import torch
 import pytorch_lightning as pl
-from transformers import DistilBertForSequenceClassification
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score, f1_score
 import matplotlib.pyplot as plt
 import wandb
 from transformers import AdamW

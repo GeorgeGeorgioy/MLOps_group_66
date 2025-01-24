@@ -2,8 +2,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import yaml
 import os
-import sys
-import os
 import subprocess
 from dotenv import load_dotenv
 from pathlib import Path

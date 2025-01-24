@@ -6,7 +6,6 @@ from transformers import DistilBertForSequenceClassification, DistilBertTokenize
 import pandas as pd
 from .data import get_transformer_dataloaders
 from .model import FraudTransformer  # Your model file
-from sklearn.metrics import accuracy_score, classification_report
 from dotenv import load_dotenv
 
 
