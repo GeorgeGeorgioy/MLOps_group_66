@@ -13,6 +13,9 @@ from .model import FraudTransformer
 from .train import train_transformer_model
 from .evaluate import evaluate_transformer
 from loguru import logger
+import warnings
+
+warnings.filterwarnings("ignore")
 
 load_dotenv()
 
@@ -41,9 +44,9 @@ def main(cfg):
         output_folder = Path(os.getenv("OUTPUT_FOLDER")).resolve()
         save_model_path = Path(os.getenv("SAVE_MODEL")).resolve()
         save_model_path.mkdir(parents=True, exist_ok=True)
-        model_path = save_model_path / "fraud_transformer_model.pth"
+        #model_path = save_model_path / "fraud_transformer_model.pth"
         logger.info(f"Resolved paths successfully: raw_data_path={raw_data_path}, processed_data_path={processed_data_path}")
-    except Exception as e:
+    except Exception:
         logger.critical("Error resolving paths from environment variables", exc_info=True)
         sys.exit(1)
 
@@ -53,7 +56,7 @@ def main(cfg):
         dataset.preprocess(output_folder)
         data = pd.read_csv(processed_data_path)
         logger.info("Data preprocessing completed successfully.")
-    except Exception as e:
+    except Exception:
         logger.error("Error during data preprocessing", exc_info=True)
         sys.exit(1)
 
@@ -77,32 +80,9 @@ def main(cfg):
         evaluate_transformer( test_loader_tf)
 
 
-    except Exception as e:
+    except Exception:
         logger.error("Error in Transformer model workflow", exc_info=True)
         sys.exit(1)
-
-
-    # tokenizer = DistilBertTokenizer.from_pretrained(cfg.tokenizer.name)
-    # train_loader_tf, test_loader_tf = get_transformer_dataloaders(
-    #         data, tokenizer, max_len=cfg.tokenizer.max_len, batch_size=cfg.training.batch_size
-    #     )
-    # transformer_model = FraudTransformer().to("cuda" if torch.cuda.is_available() else "cpu")
-
-
-
-    # train_transformer_model(
-    #         transformer_model, train_loader_tf, num_epochs=cfg.training.num_epochs, lr=cfg.training.lr
-    #     )
-
-    # #evaluate_transformer(transformer_model, test_loader_tf)
-    # evaluate_transformer(test_loader_tf)
-
-
-    # torch.save(transformer_model.state_dict(), model_path)
-    # logger.info(f"Transformer model saved to {model_path}")
-
-
-
 
 
     logger.info("Pipeline completed successfully.")
