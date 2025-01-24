@@ -4,8 +4,8 @@ import torch
 import pytorch_lightning as pl
 from transformers import DistilBertForSequenceClassification, DistilBertTokenizer
 import pandas as pd
-from data import get_transformer_dataloaders
-from model import FraudTransformer  # Your model file
+from .data import get_transformer_dataloaders
+from .model import FraudTransformer  # Your model file
 from sklearn.metrics import accuracy_score, classification_report
 from dotenv import load_dotenv
 
