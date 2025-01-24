@@ -8,7 +8,7 @@ from transformers import AdamW, DistilBertTokenizer
 from transformers import DistilBertForSequenceClassification
 import torch
 import pytorch_lightning as pl
-from model import FraudTransformer
+from .model import FraudTransformer
 from pathlib import Path
 from dotenv import load_dotenv
 from data import get_transformer_dataloaders
