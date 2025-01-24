@@ -1,7 +1,7 @@
 import torch
 import pytorch_lightning as pl
 from sklearn.metrics import accuracy_score, f1_score
-from transformers import DistilBertForSequenceClassification
+from transformers import DistilBertForSequenceClassification # noqa: F401
 import matplotlib.pyplot as plt
 import wandb
 from transformers import AdamW
