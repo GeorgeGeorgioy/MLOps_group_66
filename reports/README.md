@@ -168,7 +168,7 @@ We used pip for managing our dependencies. The list of dependencies is specified
 	git clone https://github.com/GeorgeGeorgioy/MLOps_group_66.git
 When pip is installed the new team member can just write:
 pip install -r requirements.txt
-Maybe create a new virtual environment before installing all the requirements. By following these steps, a new team member can replicate the exact development environment and start working on the project. 
+Maybe create a new virtual environment before installing all the requirements. By following these steps, a new team member can replicate the exact development environment and start working on the project.
 
 
 ### Question 5
@@ -185,7 +185,7 @@ Maybe create a new virtual environment before installing all the requirements. B
 >
 > Answer:
 In this project, we used the Cookiecutter template provided in the course. We chose to delete the notebook folder from the template since it was not used in our project. Although notebooks may be useful in the future, they are not needed at the moment. Additionally, we added a .dvc folder for data version control, as this folder contains the necessary metadata for tracking data changes.
-Furthermore, by using Hydra and WandB, an outputs folder is automatically created. This folder tracks all the configurations for both Hydra and WandB, ensuring that every experiment can be  repeated. Finally, we did not need to add additional folders, only files that became necessary due to the specific way we implemented the model. 
+Furthermore, by using Hydra and WandB, an outputs folder is automatically created. This folder tracks all the configurations for both Hydra and WandB, ensuring that every experiment can be  repeated. Finally, we did not need to add additional folders, only files that became necessary due to the specific way we implemented the model.
 
 
 
@@ -287,7 +287,7 @@ The total code coverage of code is 25%, which includes all our source code. We a
 > Answer:
 We have organized our continuous integration into 4 separate files:
 tests.yaml: This file is used for running unit tests on Python versions 3.11 and 3.12, and on operating systems Ubuntu and macOS. It ensures that our code works correctly across different environments. The test also gives us coverage reporting. We used caching to make the test run faster. The workflow can be seen here: https://github.com/GeorgeGeorgioy/MLOps_group_66/actions/workflows/tests.yaml
-codecheck.yaml: This file implements Ruff for both linting and formatting on push and pull request events to the main branch. It ensures that our code match the style guidelines and is free of common errors. 
+codecheck.yaml: This file implements Ruff for both linting and formatting on push and pull request events to the main branch. It ensures that our code match the style guidelines and is free of common errors.
 pre_commit.yaml: This file is used to run pre-commit hooks on push and pull request events to the main branch. It sets up Python 3.11, installs pre-commit, and runs the pre-commit checks. This helps catch issues early in the development process before they are merged into the main branch.
 cml_data.yaml: This file automatically triggers and runs the dataset_statistics.py when data changes. The file just calculates some basic statistics for the dataset. It ensures that our data processing scripts are up-to-date and that any changes to the data are reflected in the statistics.
 
@@ -328,7 +328,7 @@ This way, the existing hyperparameter values are overridden to test new configur
 >
 > Answer:
 
-We ensured the reproducibility of experiments by using Hydra and WandB for configuration management and experiment tracking. All hyperparameters,and model configurations were stored in a config.yaml file located in the configs folder. 
+We ensured the reproducibility of experiments by using Hydra and WandB for configuration management and experiment tracking. All hyperparameters,and model configurations were stored in a config.yaml file located in the configs folder.
 When an experiment is run, Hydra saves the configuration used for that specific run into an automatically generated outputs folder. This ensures the exact setup of each experiment is recorded, enabling reproducibility. Additionally, we used WandB to log hyperparameters, metrics, and training progress in real time. So, all experimental details, including the config file and performance metrics are stored on wandb platform.
 To reproduce an experiment, one simply needs to re-run the same configuration file by referencing the saved config.yaml or reloading the experiment through WandB, for example we run: python train.py hydra.run.dir=outputs\2025-01-21\13-29-13 to reproduced that specific experiment.
 
@@ -368,7 +368,7 @@ For weight and biases we tried to make appear the most meaningful plots for our 
 >
 > Answer:
 
-Since the project worked locally on all the group members pc’s we mainly used docker to attempt to speed up hyper parameter sweeps on the cloud. Therefore we set up the cloud build service on google to automatically trigger when pushes were made to GitHub. This then built docker images and store them in the cloud. These images were then used to ensure that training models on the cloud were always using the latest docker image of the code. This ensure that code and environments are easily reproducible, by loading in the image which can be run on virtual machines. A docker image can be found on the following link: europe-west1-docker.pkg.dev/mlops-january-2025/ml-ops-group-66/latest-image@sha256:d5f52f916a94b676adb787bf27887bc90731b55ca9c8b446e8cd58893139493c 
+Since the project worked locally on all the group members pc’s we mainly used docker to attempt to speed up hyper parameter sweeps on the cloud. Therefore we set up the cloud build service on google to automatically trigger when pushes were made to GitHub. This then built docker images and store them in the cloud. These images were then used to ensure that training models on the cloud were always using the latest docker image of the code. This ensure that code and environments are easily reproducible, by loading in the image which can be run on virtual machines. A docker image can be found on the following link: europe-west1-docker.pkg.dev/mlops-january-2025/ml-ops-group-66/latest-image@sha256:d5f52f916a94b676adb787bf27887bc90731b55ca9c8b446e8cd58893139493c
 
 ### Question 16
 
@@ -458,7 +458,7 @@ We used the compute engine to run our model trainings. We configured the trainin
 >
 > Answer:
 
-We set up training the model in the cloud using Vertex AI. We chose Vertex AI in order to easily set up vm’s and configure them to make hyper-parameter sweeps. However, we were unsuccessful in training the model due to complications with errors regarding Weights and Biases, since we couldn’t set up authentication properly in the given time-frame. In a future projects this would most likely be achieved, either by making checks in the code to only do Weights and Biases if it was authenticated, or by implementing the following guide to setup Weights and Biases to be useable in the cloud environment: https://docs.wandb.ai/guides/launch/setup-vertex/. 
+We set up training the model in the cloud using Vertex AI. We chose Vertex AI in order to easily set up vm’s and configure them to make hyper-parameter sweeps. However, we were unsuccessful in training the model due to complications with errors regarding Weights and Biases, since we couldn’t set up authentication properly in the given time-frame. In a future projects this would most likely be achieved, either by making checks in the code to only do Weights and Biases if it was authenticated, or by implementing the following guide to setup Weights and Biases to be useable in the cloud environment: https://docs.wandb.ai/guides/launch/setup-vertex/.
 
 ## Deployment
 
@@ -545,7 +545,7 @@ If the model is to be deployed and monitored, evidently can certainly play a maj
 >
 > Answer:
 
-Group member s204103 spent approximately $10 in credits during the development of the project. The cost was mainly associated with running VMs in the Compute Engine, with a significant portion attributed to upkeep, as the student forgot to turn off one of the VMs for an extended period. The remaining cost was primarily incurred while attempting to perform hyperparameter sweeps in Vertex AI. 
+Group member s204103 spent approximately $10 in credits during the development of the project. The cost was mainly associated with running VMs in the Compute Engine, with a significant portion attributed to upkeep, as the student forgot to turn off one of the VMs for an extended period. The remaining cost was primarily incurred while attempting to perform hyperparameter sweeps in Vertex AI.
 The goal was to run multiple experiments with different combinations of hyperparameters to ultimately identify the optimal set. However, the full sweep was never completed due to communication issues between the cloud setup and the WandB platform.
 
 
@@ -583,7 +583,7 @@ We added a simple front-end to our FastAPI application in order to make APIs usa
 >
 > Answer:
 ![Project architecture overview](<figures/Project scheme.jpg>)
-The diagram starts from two ends, first of all its from we, the developers’ local setup. In order to synchronize work and use version control we use github, where we can push and pull from the main branch. To handle data version control we can also use DVC push and pull to ensure that everyone’s data is up to date at all time. Whenever we push to github it auto triggers the Google cloud build which builds docker files from a cloudbuild configuration file, which builds using a docker file. After the images are built they are stored in the google artifact registry. These images can then be accessed by Vertex AI, which helps set up a VM with the docker image which is then run on the google compute engine to train models in the cloud. This can be achieved by the developer by the terminal interface from a configuration file. When setting up experiments the developer uses a Hydra config file, which assists with hyperparameter settings. This is then trained either locally or in the cloud. The model training and evaluation is logged using Weights and Biases. 
+The diagram starts from two ends, first of all its from we, the developers’ local setup. In order to synchronize work and use version control we use github, where we can push and pull from the main branch. To handle data version control we can also use DVC push and pull to ensure that everyone’s data is up to date at all time. Whenever we push to github it auto triggers the Google cloud build which builds docker files from a cloudbuild configuration file, which builds using a docker file. After the images are built they are stored in the google artifact registry. These images can then be accessed by Vertex AI, which helps set up a VM with the docker image which is then run on the google compute engine to train models in the cloud. This can be achieved by the developer by the terminal interface from a configuration file. When setting up experiments the developer uses a Hydra config file, which assists with hyperparameter settings. This is then trained either locally or in the cloud. The model training and evaluation is logged using Weights and Biases.
 From a users point of view, the way they interact with the model is through the API Interface. This is then used to trian locally, since we didn’t have time to implement the API cloud interface, which in future iterations should be able to draw the latest trained model from the compute engine, through the API.
 
 ### Question 30
@@ -598,7 +598,7 @@ From a users point of view, the way they interact with the model is through the 
 >
 > Answer:
 
-This project offered big challenges especially for the members of the group that weren’t familiar with DevOps or the handling of a programming project that needs communication across many files and softwares. We improved a bit our git knowledge that at the beginning gave some problem when came to handle big files before getting to know version control, then the communication in general between api, gcp and weight and biases made us struggle a lot in the implementation of the code, such that still now there are some problems with some files that are able to run from local and api but not on the cloud or the other way around. For example weight and biases needed some kind of authentication to run on gcp but we didn’t manage to build the communication between this two services. Also the implementation with pytorch-lightning seemed a bit odd in the beginning to the people used to work with the classic torch(nn.module), but in the end it turned out to be quite useful when it comes to training and testing after having stated all the functions in the model, in particular for what regards the hyperparameters. It was also hard to get GCP to play nice, since it required many factors to play nice together. For this we needed a dockerfile, a cloudbuild file and a vertex ai configuration file to make the system work. Running the entire process of building an image, setting up a VM, and training the model was very time consuming 
+This project offered big challenges especially for the members of the group that weren’t familiar with DevOps or the handling of a programming project that needs communication across many files and softwares. We improved a bit our git knowledge that at the beginning gave some problem when came to handle big files before getting to know version control, then the communication in general between api, gcp and weight and biases made us struggle a lot in the implementation of the code, such that still now there are some problems with some files that are able to run from local and api but not on the cloud or the other way around. For example weight and biases needed some kind of authentication to run on gcp but we didn’t manage to build the communication between this two services. Also the implementation with pytorch-lightning seemed a bit odd in the beginning to the people used to work with the classic torch(nn.module), but in the end it turned out to be quite useful when it comes to training and testing after having stated all the functions in the model, in particular for what regards the hyperparameters. It was also hard to get GCP to play nice, since it required many factors to play nice together. For this we needed a dockerfile, a cloudbuild file and a vertex ai configuration file to make the system work. Running the entire process of building an image, setting up a VM, and training the model was very time consuming
 
 ### Question 31
 
