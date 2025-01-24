@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 
 def evaluate_transformer():
-        
+
         # Load environment variables
         load_dotenv()
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

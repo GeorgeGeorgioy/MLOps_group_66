@@ -25,11 +25,11 @@ def train_transformer():
     # Load the data
     data = pd.read_csv(processed_data_path)
     train_loader, _ = get_transformer_dataloaders(data, tokenizer, max_len=128, batch_size=16)
-    
+
     # Initialize the model
     bert_model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased")
     model = FraudTransformer(bert_model).to(device)
-    
+
     # Create PyTorch Lightning Trainer
     trainer = pl.Trainer(
                 devices=1,  # Use 1 CPU or GPU
@@ -46,6 +46,3 @@ def train_transformer():
 
 if __name__ == "__main__":
     train_transformer()
-
-
-

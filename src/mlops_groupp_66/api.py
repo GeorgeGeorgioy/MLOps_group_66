@@ -43,26 +43,26 @@ async def serve_frontend():
     </head>
     <body>
         <h1>Machine Learning Model Interface</h1>
-        
+
         <h2>Train Model</h2>
         <form id="train-form">
             <label for="learning_rate">Learning Rate:</label>
             <input type="number" id="learning_rate" name="learning_rate" step="0.0001" value="0.001" required>
-            
+
             <label for="batch_size">Batch Size:</label>
             <input type="number" id="batch_size" name="batch_size" value="32" required>
-            
+
             <label for="epochs">Epochs:</label>
             <input type="number" id="epochs" name="epochs" value="10" required>
-            
+
             <button type="button" id="train-btn">Train Model</button>
         </form>
-        
+
         <h2>Evaluate Model</h2>
         <button id="evaluate-btn">Evaluate Model</button>
-        
+
         <div id="response">Response will appear here...</div>
-        
+
         <script>
             async function postTrain() {
                 const formData = new FormData(document.getElementById("train-form"));
@@ -93,7 +93,7 @@ async def serve_frontend():
     </html>
     """
     return html_content
-    
+
 
 # Endpoint to get the current hyperparameters
 @app.get("/hyperparameters/")
@@ -126,7 +126,7 @@ def update_hyperparameters(params: Hyperparameters):
         return {"message": "Hyperparameters updated successfully", "new_hyperparameters": config}
     except Exception as e:
         return {"error": str(e)}
-    
+
 # Endpoint to trigger training
 @app.get("/train/")
 def trigger_training():
@@ -151,7 +151,7 @@ def trigger_training():
             }
     except Exception as e:
         return {"error": str(e)}
-    
+
 # Endpoint to trigger training
 @app.get("/evaluate/")
 def trigger_evaluation():

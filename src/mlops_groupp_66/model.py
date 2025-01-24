@@ -42,7 +42,7 @@ class FraudTransformer(pl.LightningModule):
     def __init__(self, model):
         super().__init__()
         self.model = model  # Use the passed model directly
-    
+
     def forward(self, input_ids, attention_mask, labels=None):
         # Ensure that labels are passed if available, otherwise set to None
         return self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
@@ -51,16 +51,16 @@ class FraudTransformer(pl.LightningModule):
         input_ids = batch['input_ids']
         attention_mask = batch['attention_mask']
         labels = batch['labels']
-        
+
         # Forward pass with labels for loss calculation
         outputs = self(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-        
+
         # Extract loss
         loss = outputs.loss
-        
+
         # Log loss
         self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True)
-        
+
         return loss
 
     def validation_step(self, batch, batch_idx):

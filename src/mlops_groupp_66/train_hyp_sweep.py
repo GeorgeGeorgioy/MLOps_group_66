@@ -63,8 +63,8 @@ def train_and_evaluate(config=None):
             # Initialize model
             bert_model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased")
             model = FraudTransformer(bert_model).to(device)
-            
-            
+
+
             trainer = pl.Trainer(
                 devices=1,  # Use 1 CPU or GPU
                 accelerator="auto",  # Explicitly set to use CPU or GPU if available

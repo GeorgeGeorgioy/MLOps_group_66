@@ -9,7 +9,7 @@ from pathlib import Path
 def detect_data_drift(main_data_path: str, balanced_data_path: str, drift_report_path: str):
     """Detect data drift between the main dataset and the balanced dataset."""
     print("Loading datasets...")
-    
+
     # Load datasets
     main_data = pd.read_csv(main_data_path)
     balanced_data = pd.read_csv(balanced_data_path)
@@ -29,7 +29,7 @@ def detect_data_drift(main_data_path: str, balanced_data_path: str, drift_report
     # Save the HTML report
     data_drift_report.save_html(str(drift_report_path))  # Convert Path to string
     print(f"Data drift report saved to {drift_report_path}")
-    
+
     # Extract drift report data as a dictionary (which includes metrics)
     drift_report_data = data_drift_report.as_dict()
     print("Drift Report Data:")
@@ -38,7 +38,7 @@ def detect_data_drift(main_data_path: str, balanced_data_path: str, drift_report
 if __name__ == "__main__":
     # Load environment variables
     load_dotenv()
-    
+
     # Paths from .env
     main_data_path = Path(os.getenv("ORIGINAL_DATA")).resolve()
     balanced_data_path = Path(os.getenv("RAW_DATA")).resolve()

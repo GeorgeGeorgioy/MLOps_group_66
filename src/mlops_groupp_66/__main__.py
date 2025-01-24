@@ -83,8 +83,8 @@ def main(cfg):
     except Exception:
         logger.error("Error in Transformer model workflow", exc_info=True)
         sys.exit(1)
-    
-    
+
+
     logger.info("Pipeline completed successfully.")
 
 
