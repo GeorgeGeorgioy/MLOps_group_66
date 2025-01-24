@@ -4,7 +4,7 @@ from transformers import DistilBertTokenizer, DistilBertForSequenceClassificatio
 from model import FraudTransformer
 from pathlib import Path
 from dotenv import load_dotenv
-from .data import get_transformer_dataloaders
+from data import get_transformer_dataloaders
 import pandas as pd
 import os
 import wandb
