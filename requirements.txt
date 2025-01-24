@@ -9,7 +9,7 @@ scikit-learn>=0.24.0
 transformers>=4.0.0
 fastapi>=0.95.2
 pydantic>=1.10.8
-indently>=1.0.0
+evidently>=0.4.0
 pytorch-lightning>=2.0.0
 loguru==0.7.3
 python-dotenv>=0.7.0
