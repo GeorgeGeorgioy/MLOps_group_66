@@ -38,7 +38,7 @@ jobs:
         echo '![](./data_statistics.png "Data statistics")' >> data_statistics.md
 
     - name: Setup cml
-      uses: iterative/setup-cml@v2
+      uses: iterative/setup-cml@v3
 
     - name: Comment on PR
       env:
